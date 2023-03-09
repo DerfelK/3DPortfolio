@@ -1,7 +1,6 @@
-import { useState, useRef, Suspense, RefObject } from "react";
+import { useState, useRef, Suspense } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { PointMaterial, Preload } from "@react-three/drei";
-import { Points } from "@react-three/drei/core/Points";
+import { Points, PointMaterial, Preload } from "@react-three/drei";
 import * as random from "maath/random/dist/maath-random.cjs";
 
 interface StarsProps {
@@ -9,8 +8,8 @@ interface StarsProps {
 }
 
 const Stars = (props: StarsProps) => {
-  const ref = useRef<typeof Points>();
-  const [sphere] = useState(() => random.inSphere(new Float32Array(5000), { radius: 1.2 }));
+  const ref = useRef<THREE.Points>(null);
+  const [sphere] = useState(() => random.inSphere(new Float32Array(5000), { radius: 1.2 }) as Float32Array);
 
   useFrame((state, delta) => {
     if (ref.current) {
